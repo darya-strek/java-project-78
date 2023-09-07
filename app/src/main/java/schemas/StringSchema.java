@@ -1,6 +1,6 @@
-package hexlet.code;
+package schemas;
 
-public class StringSchema {
+public class StringSchema extends BaseSchema {
     private boolean required = false;
     private int length;
     private String substring = "";
