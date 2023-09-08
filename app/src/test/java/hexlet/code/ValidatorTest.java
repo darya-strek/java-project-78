@@ -1,7 +1,8 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.Test;
+import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,5 +39,38 @@ public class ValidatorTest {
 
         schema.contains("hello");
         assertFalse(schema.isValid("Hexlet"));
+    }
+
+    @Test
+    void numberSchemaTest() {
+        NumberSchema schema = validator.number();
+
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(77));
+        assertTrue(schema.isValid(-77));
+        assertTrue(schema.isValid(0));
+        assertFalse(schema.isValid("Hexlet"));
+
+        schema.positive();
+
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(77));
+        assertFalse(schema.isValid(-77));
+        assertFalse(schema.isValid(0));
+
+        schema.required();
+
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(77));
+        assertFalse(schema.isValid(-77));
+        assertFalse(schema.isValid(0));
+
+        schema.range(50, 100);
+
+        assertTrue(schema.isValid(77));
+        assertTrue(schema.isValid(50));
+        assertTrue(schema.isValid(100));
+        assertFalse(schema.isValid(25));
+        assertFalse(schema.isValid(125));
     }
 }

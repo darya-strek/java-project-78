@@ -22,8 +22,9 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
+    @Override
     public boolean isValid(Object obj) {
-        if (obj != null && !(obj instanceof String)) {
+        if (!isInstance(obj, "String")) {
             return false;
         }
         if (required && (obj == null || obj.toString().equals(""))) {
