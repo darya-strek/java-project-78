@@ -1,5 +1,7 @@
 package hexlet.code.schemas;
 
+import java.util.Map;
+
 public abstract class BaseSchema {
     public abstract boolean isValid(Object obj);
 
@@ -10,6 +12,9 @@ public abstract class BaseSchema {
             }
             if (instance.equals("Number")) {
                 return obj instanceof Number;
+            }
+            if (instance.equals("Map")) {
+                return obj instanceof Map;
             }
             return false;
         }
