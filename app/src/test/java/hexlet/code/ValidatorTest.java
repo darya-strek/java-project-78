@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.schemas.BaseSchema;
 import hexlet.code.schemas.MapSchema;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
@@ -100,5 +101,70 @@ public class ValidatorTest {
 
         testMap.put("key2", "value2");
         assertTrue(schema.isValid(testMap));
+    }
+
+    @Test
+    void mapSchemaTestWithInsertedMap() {
+        MapSchema schema = validator.map();
+
+        Map<String, BaseSchema> schemas = new HashMap<>();
+
+        schemas.put("name", validator.string().required().minLength(2));
+        schemas.put("age", validator.number().positive());
+
+        schema.shape(schemas);
+
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("name", "Alice");
+        human1.put("age", 21);
+        assertTrue(schema.isValid(human1));
+
+        Map<String, Object> human2 = new HashMap<>();
+        human2.put("name", "Alex");
+        human2.put("age", null);
+        assertTrue(schema.isValid(human2));
+
+        Map<String, Object> human3 = new HashMap<>();
+        human3.put("name", null);
+        human3.put("age", null);
+        assertFalse(schema.isValid(human3));
+
+        Map<String, Object> human4 = new HashMap<>();
+        human4.put("name", "");
+        human4.put("age", null);
+        assertFalse(schema.isValid(human4));
+
+        Map<String, Object> human5 = new HashMap<>();
+        human5.put("name", "A");
+        human5.put("age", null);
+        assertFalse(schema.isValid(human5));
+
+        Map<String, Object> human6 = new HashMap<>();
+        human6.put("name", "Marina");
+        human6.put("age", -8);
+        assertFalse(schema.isValid(human6));
+
+        schemas.put("age", validator.number().positive().range(18, 35));
+        schemas.put("hobbies", validator.map().required());
+
+        schema.shape(schemas);
+
+        Map<String, Object> human7 = new HashMap<>();
+        human7.put("name", "Lora");
+        human7.put("age", 25);
+        human7.put("hobbies", Map.of("one", "ride a bike"));
+        assertTrue(schema.isValid(human7));
+
+        Map<String, Object> human8 = new HashMap<>();
+        human8.put("name", "Helena");
+        human8.put("age", 30);
+        human8.put("hobbies", null);
+        assertFalse(schema.isValid(human8));
+
+        Map<String, Object> human9 = new HashMap<>();
+        human9.put("name", "Fred");
+        human9.put("age", 10);
+        human9.put("hobbies", Map.of("one", "read books"));
+        assertFalse(schema.isValid(human9));
     }
 }

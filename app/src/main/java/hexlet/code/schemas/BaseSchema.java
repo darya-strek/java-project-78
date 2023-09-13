@@ -4,14 +4,7 @@ import java.util.Map;
 
 public abstract class BaseSchema {
 
-    public boolean required = false;
-
     public BaseSchema() {
-    }
-
-    public BaseSchema required() {
-        this.required = true;
-        return this;
     }
 
     public abstract boolean isValid(Object obj);
