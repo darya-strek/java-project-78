@@ -42,9 +42,6 @@ public class NumberSchema extends BaseSchema {
 
     @Override
     public boolean isValid(Object obj) {
-        if (!isInstance(obj, "Number") || isRequired(obj) || isPositive(obj) || isRange(obj)) {
-            return false;
-        }
-        return true;
+        return isInstance(obj, "Number") && !isRequired(obj) && !isPositive(obj) && !isRange(obj);
     }
 }

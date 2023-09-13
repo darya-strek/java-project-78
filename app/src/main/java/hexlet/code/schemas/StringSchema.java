@@ -1,7 +1,7 @@
 package hexlet.code.schemas;
 
 public class StringSchema extends BaseSchema {
-    public boolean required = false;
+    private boolean required = false;
     private int length;
     private String substring = "";
 
@@ -24,23 +24,20 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
-    private boolean isRequired(Object obj) {
+    public boolean isRequired(Object obj) {
         return required && (obj == null || obj.toString().equals(""));
     }
 
-    private boolean isMinLength(Object obj) {
+    public boolean isMinLength(Object obj) {
         return obj != null && obj.toString().length() < length;
     }
 
-    private boolean isContains(Object obj) {
+    public boolean isContains(Object obj) {
         return obj != null && !(obj.toString().contains(substring));
     }
 
     @Override
     public boolean isValid(Object obj) {
-        if (!isInstance(obj, "String") || isRequired(obj) || isMinLength(obj) || isContains(obj)) {
-            return false;
-        }
-        return true;
+        return isInstance(obj, "String") && !isRequired(obj) && !isMinLength(obj) && !isContains(obj);
     }
 }

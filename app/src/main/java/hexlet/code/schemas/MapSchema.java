@@ -55,9 +55,6 @@ public class MapSchema extends BaseSchema {
 
     @Override
     public boolean isValid(Object obj) {
-        if (!isInstance(obj, "Map") || isRequired(obj) || isSizeof(obj) || isShape(obj)) {
-            return false;
-        }
-        return true;
+        return isInstance(obj, "Map") && !isRequired(obj) && !isSizeof(obj) && !isShape(obj);
     }
 }

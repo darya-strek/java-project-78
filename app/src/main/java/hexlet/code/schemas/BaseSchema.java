@@ -11,16 +11,12 @@ public abstract class BaseSchema {
 
     public boolean isInstance(Object obj, String instance) {
         if (obj != null) {
-            if (instance.equals("String")) {
-                return obj instanceof String;
+            switch (instance) {
+                case "String": return obj instanceof String;
+                case "Number": return obj instanceof Number;
+                case "Map": return obj instanceof Map;
+                default: return false;
             }
-            if (instance.equals("Number")) {
-                return obj instanceof Number;
-            }
-            if (instance.equals("Map")) {
-                return obj instanceof Map;
-            }
-            return false;
         }
         return true;
     }
