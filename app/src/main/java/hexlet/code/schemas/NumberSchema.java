@@ -1,18 +1,14 @@
 package hexlet.code.schemas;
 
 public class NumberSchema extends BaseSchema {
-    private boolean required = false;
     private boolean positive = false;
     private int minOfRange = Integer.MIN_VALUE;
     private int maxOfRange = Integer.MAX_VALUE;
 
     public NumberSchema() {
+        super();
     }
 
-    public NumberSchema required() {
-        this.required = true;
-        return this;
-    }
     public NumberSchema positive() {
         this.positive = true;
         return this;
@@ -29,7 +25,7 @@ public class NumberSchema extends BaseSchema {
         if (!isInstance(obj, "Number")) {
             return false;
         }
-        if (required && obj == null) {
+        if (super.required && obj == null) {
             return false;
         }
         if (positive && obj != null && (Integer) obj <= 0) {
