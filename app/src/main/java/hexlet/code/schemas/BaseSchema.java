@@ -8,7 +8,7 @@ public abstract class BaseSchema {
 
     public abstract boolean isValid(Object obj);
 
-    public boolean isInstance(Object obj, String instance) {
+    public final boolean isInstance(Object obj, String instance) {
         if (obj != null) {
             return switch (instance) {
                 case "String" -> obj instanceof String;

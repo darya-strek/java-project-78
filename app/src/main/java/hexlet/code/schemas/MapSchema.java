@@ -3,28 +3,28 @@ package hexlet.code.schemas;
 import java.util.Map;
 
 public class MapSchema extends BaseSchema {
-    public boolean required = false;
+    private boolean required = false;
     private boolean size = false;
     private int checkedSize;
     private boolean shape = false;
-    public Map<String, BaseSchema> schemas;
+    private Map<String, BaseSchema> schemas;
 
     public MapSchema() {
         super();
     }
 
-    public MapSchema required() {
+    public final MapSchema required() {
         this.required = true;
         return this;
     }
 
-    public MapSchema sizeof(int number) {
+    public final MapSchema sizeof(int number) {
         this.size = true;
         this.checkedSize = number;
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> checkedSchemas) {
+    public final MapSchema shape(Map<String, BaseSchema> checkedSchemas) {
         this.shape = true;
         this.schemas = checkedSchemas;
         return this;
@@ -54,7 +54,7 @@ public class MapSchema extends BaseSchema {
     }
 
     @Override
-    public boolean isValid(Object obj) {
+    public final boolean isValid(Object obj) {
         return isInstance(obj, "Map") && !isRequired(obj) && !isSizeof(obj) && !isShape(obj);
     }
 }

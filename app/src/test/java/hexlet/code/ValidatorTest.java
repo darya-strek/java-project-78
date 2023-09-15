@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorTest {
 
-    Validator validator;
+    private Validator validator;
 
     @BeforeEach
-    void setUp() {
+    final void setUp() {
         validator = new Validator();
     }
 

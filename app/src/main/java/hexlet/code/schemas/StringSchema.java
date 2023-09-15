@@ -9,35 +9,35 @@ public class StringSchema extends BaseSchema {
         super();
     }
 
-    public StringSchema required() {
+    public final StringSchema required() {
         this.required = true;
         return this;
     }
 
-    public StringSchema minLength(int checkedMinLength) {
+    public final StringSchema minLength(int checkedMinLength) {
         this.length = checkedMinLength;
         return this;
     }
 
-    public StringSchema contains(String checkedSubstring) {
+    public final StringSchema contains(String checkedSubstring) {
         this.substring = checkedSubstring;
         return this;
     }
 
-    public boolean isRequired(Object obj) {
+    public final boolean isRequired(Object obj) {
         return required && (obj == null || obj.toString().equals(""));
     }
 
-    public boolean isMinLength(Object obj) {
+    public final boolean isMinLength(Object obj) {
         return obj != null && obj.toString().length() < length;
     }
 
-    public boolean isContains(Object obj) {
+    public final boolean isContains(Object obj) {
         return obj != null && !(obj.toString().contains(substring));
     }
 
     @Override
-    public boolean isValid(Object obj) {
+    public final boolean isValid(Object obj) {
         return isInstance(obj, "String") && !isRequired(obj) && !isMinLength(obj) && !isContains(obj);
     }
 }

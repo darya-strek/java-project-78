@@ -1,7 +1,7 @@
 package hexlet.code.schemas;
 
 public class NumberSchema extends BaseSchema {
-    public boolean required = false;
+    private boolean required = false;
     private boolean positive = false;
     private boolean range = false;
     private int minOfRange;
@@ -11,17 +11,17 @@ public class NumberSchema extends BaseSchema {
         super();
     }
 
-    public NumberSchema required() {
+    public final NumberSchema required() {
         this.required = true;
         return this;
     }
 
-    public NumberSchema positive() {
+    public final NumberSchema positive() {
         this.positive = true;
         return this;
     }
 
-    public NumberSchema range(int min, int max) {
+    public final NumberSchema range(int min, int max) {
         this.range = true;
         this.minOfRange = min;
         this.maxOfRange = max;
@@ -41,7 +41,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     @Override
-    public boolean isValid(Object obj) {
+    public final boolean isValid(Object obj) {
         return isInstance(obj, "Number") && !isRequired(obj) && !isPositive(obj) && !isRange(obj);
     }
 }
