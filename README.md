@@ -6,13 +6,16 @@
 
 ### Data validator
 
-This program allows to validate data: String, Number, Map - in accordance with the following conditions:
-- All data: checking for _null_ using the method _required()_;
+Data validator is a library for checking the correctness of the entered data: String, Number, Map. The library has the methods to work with data:
 - String:
-  - checking for minimum string length using the method _length()_,
-  - checking if a string contains a substring using the method _contains()_;
+  - _required()_ - checking whether a string is not _null_ or empty,
+  - _minLength()_ - checking if a string is more or equals given length,
+  - _contains()_ - checking if a string contains a given substring.
 - Number:
-  - checking if a number is positive using the method _positive()_,
-  - checking whether a number is in the range using the method _range()_;
+  - _required()_ - checking whether a number is not _null_,
+  - _positive()_ - checking if a number is positive,
+  - _range()_ - checking whether a number is in the range.
 - Map:
-  - checking whether a map is equal to a given size using the method _sizeof()_.
+  - _required()_ - checking whether a map is not _null_,
+  - _sizeof()_ - checking whether a map is equal to a given size,
+  - _shape()_ - allows to describe validation for inserted objects of Map by keys.

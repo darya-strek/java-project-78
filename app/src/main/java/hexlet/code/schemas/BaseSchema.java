@@ -3,7 +3,6 @@ package hexlet.code.schemas;
 import java.util.Map;
 
 public abstract class BaseSchema {
-
     public BaseSchema() {
     }
 
@@ -11,12 +10,12 @@ public abstract class BaseSchema {
 
     public boolean isInstance(Object obj, String instance) {
         if (obj != null) {
-            switch (instance) {
-                case "String": return obj instanceof String;
-                case "Number": return obj instanceof Number;
-                case "Map": return obj instanceof Map;
-                default: return false;
-            }
+            return switch (instance) {
+                case "String" -> obj instanceof String;
+                case "Number" -> obj instanceof Number;
+                case "Map" -> obj instanceof Map;
+                default -> false;
+            };
         }
         return true;
     }

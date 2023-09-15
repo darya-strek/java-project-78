@@ -4,6 +4,7 @@ import hexlet.code.schemas.BaseSchema;
 import hexlet.code.schemas.MapSchema;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -14,10 +15,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorTest {
 
-    Validator validator = new Validator();
+    Validator validator;
+
+    @BeforeEach
+    void setUp() {
+        validator = new Validator();
+    }
 
     @Test
-    void stringSchemaTest() {
+    void testStringSchema() {
         StringSchema schema = validator.string();
 
         assertTrue(schema.isValid(null));
@@ -47,7 +53,7 @@ public class ValidatorTest {
     }
 
     @Test
-    void numberSchemaTest() {
+    void testNumberSchema() {
         NumberSchema schema = validator.number();
 
         assertTrue(schema.isValid(null));
@@ -80,7 +86,7 @@ public class ValidatorTest {
     }
 
     @Test
-    void mapSchemaTest() {
+    void testMapSchema() {
         MapSchema schema = validator.map();
         Map<String, String> testMap = new HashMap<>();
 
@@ -104,7 +110,7 @@ public class ValidatorTest {
     }
 
     @Test
-    void mapSchemaTestWithInsertedMap() {
+    void testMapSchemaWithInsertedMap() {
         MapSchema schema = validator.map();
 
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -167,4 +173,16 @@ public class ValidatorTest {
         human9.put("hobbies", Map.of("one", "read books"));
         assertFalse(schema.isValid(human9));
     }
+
+    @Test
+    void testIsInstanceDefault() {
+        BaseSchema schema = new BaseSchema() {
+            @Override
+            public boolean isValid(Object obj) {
+                return false;
+            }
+        };
+        assertFalse(schema.isInstance(new Object(), "List"));
+    }
+
 }
