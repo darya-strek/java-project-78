@@ -39,7 +39,12 @@ public final class NumberSchema extends BaseSchema {
     public NumberSchema range(int min, int max) {
         addCheck(
                 "range",
-                value -> (int) value >= min && (int) value <= max
+                value -> {
+                    if (value instanceof Integer) {
+                        return (int) value >= min && (int) value <= max;
+                    }
+                    return true;
+                }
         );
         return this;
     }
