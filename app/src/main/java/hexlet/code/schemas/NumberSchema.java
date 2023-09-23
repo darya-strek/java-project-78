@@ -27,8 +27,8 @@ public final class NumberSchema extends BaseSchema {
         addCheck(
                 "positive",
                 value -> {
-                    if (value != null) {
-                        return (int) value > 0;
+                    if (value instanceof Integer) {
+                        return (Integer) value > 0;
                     }
                     return true;
                 }
@@ -41,7 +41,7 @@ public final class NumberSchema extends BaseSchema {
                 "range",
                 value -> {
                     if (value instanceof Integer) {
-                        return (int) value >= min && (int) value <= max;
+                        return (Integer) value >= min && (Integer) value <= max;
                     }
                     return true;
                 }
