@@ -174,15 +174,4 @@ public class ValidatorTest {
         assertFalse(schema.isValid(human9));
     }
 
-    @Test
-    void testIsInstanceDefault() {
-        BaseSchema schema = new BaseSchema() {
-            @Override
-            public boolean isValid(Object obj) {
-                return false;
-            }
-        };
-        assertFalse(schema.isInstance(new Object(), "List"));
-    }
-
 }

@@ -1,43 +1,43 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BaseSchema {
-    private boolean required = false;
-    private int length;
-    private String substring = "";
+public final class StringSchema extends BaseSchema {
 
     public StringSchema() {
         super();
+        addCheck(
+                "instanceof",
+                value -> {
+                    if (value != null) {
+                        return value instanceof String;
+                    }
+                    return true;
+                }
+        );
     }
 
-    public final StringSchema required() {
-        this.required = true;
+    public StringSchema required() {
+        addCheck(
+                "required",
+                value -> value != null && !value.equals("")
+        );
+
         return this;
     }
 
-    public final StringSchema minLength(int checkedMinLength) {
-        this.length = checkedMinLength;
+    public StringSchema minLength(int minLength) {
+        addCheck(
+                "minLength",
+                value -> value != null && ((String) value).length() >= minLength
+        );
+
         return this;
     }
 
-    public final StringSchema contains(String checkedSubstring) {
-        this.substring = checkedSubstring;
+    public StringSchema contains(String substring) {
+        addCheck(
+                "contains",
+                value -> value != null && ((String) value).contains(substring)
+        );
         return this;
-    }
-
-    public final boolean isRequired(Object obj) {
-        return required && (obj == null || obj.toString().equals(""));
-    }
-
-    public final boolean isMinLength(Object obj) {
-        return obj != null && obj.toString().length() < length;
-    }
-
-    public final boolean isContains(Object obj) {
-        return obj != null && !(obj.toString().contains(substring));
-    }
-
-    @Override
-    public final boolean isValid(Object obj) {
-        return isInstance(obj, "String") && !isRequired(obj) && !isMinLength(obj) && !isContains(obj);
     }
 }

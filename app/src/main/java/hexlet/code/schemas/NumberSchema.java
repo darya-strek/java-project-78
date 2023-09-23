@@ -1,47 +1,46 @@
 package hexlet.code.schemas;
 
-public class NumberSchema extends BaseSchema {
-    private boolean required = false;
-    private boolean positive = false;
-    private boolean range = false;
-    private int minOfRange;
-    private int maxOfRange;
+public final class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
         super();
+        addCheck(
+                "instanceof",
+                value -> {
+                    if (value != null) {
+                        return value instanceof Integer;
+                    }
+                    return true;
+                }
+        );
     }
 
-    public final NumberSchema required() {
-        this.required = true;
+    public NumberSchema required() {
+        addCheck(
+                "required",
+                value -> value != null
+        );
         return this;
     }
 
-    public final NumberSchema positive() {
-        this.positive = true;
+    public NumberSchema positive() {
+        addCheck(
+                "positive",
+                value -> {
+                    if (value != null) {
+                        return (int) value > 0;
+                    }
+                    return true;
+                }
+        );
         return this;
     }
 
-    public final NumberSchema range(int min, int max) {
-        this.range = true;
-        this.minOfRange = min;
-        this.maxOfRange = max;
+    public NumberSchema range(int min, int max) {
+        addCheck(
+                "range",
+                value -> (int) value >= min && (int) value <= max
+        );
         return this;
-    }
-
-    private boolean isRequired(Object obj) {
-        return required && obj == null;
-    }
-
-    private boolean isPositive(Object obj) {
-        return positive && obj != null && (Integer) obj <= 0;
-    }
-
-    private boolean isRange(Object obj) {
-        return range && obj != null && !(minOfRange <= (Integer) obj && (Integer) obj <= maxOfRange);
-    }
-
-    @Override
-    public final boolean isValid(Object obj) {
-        return isInstance(obj, "Number") && !isRequired(obj) && !isPositive(obj) && !isRange(obj);
     }
 }

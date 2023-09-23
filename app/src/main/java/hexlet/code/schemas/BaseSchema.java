@@ -1,22 +1,21 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
+import java.util.HashMap;
+import java.util.function.Predicate;
 
 public abstract class BaseSchema {
-    public BaseSchema() {
+    private final Map<String, Predicate<Object>> checks;
+
+    protected BaseSchema() {
+        this.checks = new HashMap<>();
     }
 
-    public abstract boolean isValid(Object obj);
+    protected final void addCheck(String name, Predicate<Object> check) {
+        checks.put(name, check);
+    }
 
-    public final boolean isInstance(Object obj, String instance) {
-        if (obj != null) {
-            return switch (instance) {
-                case "String" -> obj instanceof String;
-                case "Number" -> obj instanceof Number;
-                case "Map" -> obj instanceof Map;
-                default -> false;
-            };
-        }
-        return true;
+    public final boolean isValid(Object obj) {
+        return checks.values().stream().allMatch(check -> check.test(obj));
     }
 }
