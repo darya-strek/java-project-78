@@ -173,5 +173,4 @@ public class ValidatorTest {
         human9.put("hobbies", Map.of("one", "read books"));
         assertFalse(schema.isValid(human9));
     }
-
 }

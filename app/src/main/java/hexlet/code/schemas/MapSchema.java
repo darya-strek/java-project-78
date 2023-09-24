@@ -6,8 +6,7 @@ public final class MapSchema extends BaseSchema {
 
     public MapSchema() {
         super();
-        addCheck(
-                "instanceof",
+        addCheck("instanceof",
                 value -> {
                     if (value != null) {
                         return value instanceof Map;
@@ -18,24 +17,21 @@ public final class MapSchema extends BaseSchema {
     }
 
     public MapSchema required() {
-        addCheck(
-                "required",
+        addCheck("required",
                 value -> value != null
         );
         return this;
     }
 
     public MapSchema sizeof(int size) {
-        addCheck(
-                "sizeof",
+        addCheck("sizeof",
                 value -> ((Map<?, ?>) value).size() == size
         );
         return this;
     }
 
     public MapSchema shape(Map<String, BaseSchema> schemas) {
-        addCheck(
-                "shape",
+        addCheck("shape",
                 value -> schemas.entrySet().stream().allMatch(item -> {
                     Object object = ((Map<?, ?>) value).get(item.getKey());
                     return item.getValue().isValid(object);

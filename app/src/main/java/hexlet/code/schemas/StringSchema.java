@@ -4,8 +4,7 @@ public final class StringSchema extends BaseSchema {
 
     public StringSchema() {
         super();
-        addCheck(
-                "instanceof",
+        addCheck("instanceof",
                 value -> {
                     if (value != null) {
                         return value instanceof String;
@@ -16,8 +15,7 @@ public final class StringSchema extends BaseSchema {
     }
 
     public StringSchema required() {
-        addCheck(
-                "required",
+        addCheck("required",
                 value -> value != null && !value.equals("")
         );
 
@@ -25,8 +23,7 @@ public final class StringSchema extends BaseSchema {
     }
 
     public StringSchema minLength(int minLength) {
-        addCheck(
-                "minLength",
+        addCheck("minLength",
                 value -> value != null && ((String) value).length() >= minLength
         );
 
@@ -34,8 +31,7 @@ public final class StringSchema extends BaseSchema {
     }
 
     public StringSchema contains(String substring) {
-        addCheck(
-                "contains",
+        addCheck("contains",
                 value -> value != null && ((String) value).contains(substring)
         );
         return this;
